@@ -236,6 +236,9 @@ class OrderController extends Controller
                             $swapStock = $this->handle->getStockById($stock['id']);
 
                             $product = $this->handle->getProductById($swapStock->product_id);
+                            if ($product->state==0){
+                                throw new \Exception('该商品已下架！');
+                            }
                             if ($product->store_id == $item) {
                                // var_dump($swapStock->price);
                                 //var_dump($stock['number']);
@@ -284,9 +287,9 @@ class OrderController extends Controller
                 ]
             ]);
         } catch (\Exception $exception) {
-            dd($exception);
+//            dd($exception);
             DB::rollBack();
-            return jsonResponse(['msg' => '参数错误！'], 400);
+            return jsonResponse(['msg' => $exception->getMessage()], 400);
         }
 
 

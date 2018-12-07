@@ -230,7 +230,7 @@ class BargainController extends Controller
         $page = Input::get('page',1);
         $limit = Input::get('limit',13);
         $data = $this->handle->getBargainRecords(0,$promotion_id,$page,$limit);
-        dd($data);
+//        dd($data);
         $this->handle->formatBargainRecords($data['data']);
         return jsonResponse([
             'msg'=>'ok',

@@ -186,7 +186,7 @@ trait BargainHandle
         foreach ($records as $record){
             $record->user = WeChatUser::find($record->user_id);
             $price = BargainRecord::where('promotion_id','=',$record->id)->sum('price');
-            $record->price = number_format($price,2);
+            $record->price = sprintf('%.2f',$price);
             if ($productInfo){
                 //$list = $this->getBargainListById($record->promotion_id);
                 $promotion = $this->getBargainPromotion($record->promotion_id);
